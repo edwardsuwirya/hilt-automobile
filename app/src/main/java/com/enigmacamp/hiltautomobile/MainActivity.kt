@@ -1,5 +1,6 @@
 package com.enigmacamp.hiltautomobile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import com.enigmacamp.hiltautomobile.data.model.Car
 import com.enigmacamp.hiltautomobile.data.model.DieselEngine
 import com.enigmacamp.hiltautomobile.data.model.Engine
 import com.enigmacamp.hiltautomobile.data.model.GasolineEngine
+import com.enigmacamp.hiltautomobile.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
@@ -43,6 +45,8 @@ import javax.inject.Named
  */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     private lateinit var car: Car
 
     @Inject
@@ -55,15 +59,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.apply {
+            secondButton.setOnClickListener {
+                car = Car(dieselEngine)
+                Log.d("Car", "Memory main activity: ${dieselEngine}")
 
-// Kita akan buat DI dengan HILT, tidak manual seperti dibawah ini
-//        val gasolineEngine = GasolineEngine()
-
-
-        car = Car(dieselEngine)
-        Log.d("Car", car.onCarStart())
-        Log.d("Car", car.onCarStop())
-        Log.d("Car", car.onRefillFuel())
+                val intent = Intent(this@MainActivity, SecondActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 }
