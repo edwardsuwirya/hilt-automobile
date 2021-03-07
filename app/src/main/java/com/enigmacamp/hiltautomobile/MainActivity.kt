@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.enigmacamp.hiltautomobile.data.model.Car
+import com.enigmacamp.hiltautomobile.data.model.DieselEngine
 import com.enigmacamp.hiltautomobile.data.model.Engine
 import com.enigmacamp.hiltautomobile.data.model.GasolineEngine
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import javax.inject.Named
 
 /*
  Mengimplementasikan dependency injection, memberikan keuntungan sebagai berikut
@@ -44,7 +46,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var car: Car
 
     @Inject
+    @Named("Gas")
     lateinit var engine: Engine
+
+    @Inject
+    @Named("Diesel")
+    lateinit var dieselEngine: Engine
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 //        val gasolineEngine = GasolineEngine()
 
 
-        car = Car(engine)
+        car = Car(dieselEngine)
         Log.d("Car", car.onCarStart())
         Log.d("Car", car.onCarStop())
         Log.d("Car", car.onRefillFuel())
