@@ -1,9 +1,9 @@
 package com.enigmacamp.hiltautomobile.data.model
 
-class GasolineEngine : Engine {
-    override var engineFuel: String
-        get() = "Gasoline"
-        set(value) {}
+import javax.inject.Inject
+
+class GasolineEngine @Inject constructor() : Engine {
+    override var engineFuel = "Gasoline"
 
     override fun start() = "Engine $engineFuel is starting"
 
