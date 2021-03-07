@@ -4,10 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.enigmacamp.hiltautomobile.data.model.Car
-import com.enigmacamp.hiltautomobile.data.model.DieselEngine
-import com.enigmacamp.hiltautomobile.data.model.Engine
-import com.enigmacamp.hiltautomobile.data.model.GasolineEngine
+import com.enigmacamp.hiltautomobile.data.model.*
 import com.enigmacamp.hiltautomobile.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -57,13 +54,16 @@ class MainActivity : AppCompatActivity() {
     @Named("Diesel")
     lateinit var dieselEngine: Engine
 
+    @Inject
+    lateinit var audio: Equipment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.apply {
             secondButton.setOnClickListener {
-                car = Car(dieselEngine)
+                car = Car(dieselEngine, audio)
                 Log.d("Car", "Memory main activity: ${dieselEngine}")
 
                 val intent = Intent(this@MainActivity, SecondActivity::class.java)

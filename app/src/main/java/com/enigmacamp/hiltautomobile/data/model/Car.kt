@@ -1,6 +1,6 @@
 package com.enigmacamp.hiltautomobile.data.model
 
-class Car(private val engine: Engine) {
+class Car(private val engine: Engine, private val equipment: Equipment) {
     /*
        apa perbedaan dengan
        class Car(){

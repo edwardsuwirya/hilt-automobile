@@ -1,10 +1,9 @@
 package com.enigmacamp.hiltautomobile.di
 
-import com.enigmacamp.hiltautomobile.data.model.DieselEngine
-import com.enigmacamp.hiltautomobile.data.model.Engine
-import com.enigmacamp.hiltautomobile.data.model.GasolineEngine
+import com.enigmacamp.hiltautomobile.data.model.*
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
@@ -29,4 +28,15 @@ abstract class AutomobileModule {
     @Binds
     @Named("Diesel")
     abstract fun bindDieselEngine(dieselEngine: DieselEngine): Engine
+
+//    Tidak bisa karena private constructor menggunakan builder pattern
+//    @Binds
+//    abstract fun bindsAudio(stereoAudio: StereoAudio): Equipment
+
+    companion object {
+        @Singleton
+        @Provides
+        fun provideAudio(): Equipment =
+            StereoAudio.Builder().model("Stereo Hifi Entertainment").build()
+    }
 }
